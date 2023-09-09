@@ -87,7 +87,9 @@ function Filter() {
                 <TextField {...params} label="Departing From" />
               )}
               onChange={(event, value) =>
-                dispatch(changeActiveFilters({ dept_from: value.code }))
+                dispatch(
+                  changeActiveFilters({ dept_from: value ? value.code : null })
+                )
               }
             />
           </Grid>
@@ -100,7 +102,9 @@ function Filter() {
                 <TextField {...params} label="Arriving At" />
               )}
               onChange={(event, value) =>
-                dispatch(changeActiveFilters({ arr_to: value.code }))
+                dispatch(
+                  changeActiveFilters({ arr_to: value ? value.code : null })
+                )
               }
             />
           </Grid>
@@ -115,7 +119,10 @@ function Filter() {
                 }
                 dispatch(
                   changeActiveFilters({
-                    departure_date: moment(dateString).format("YYYY-MM-DD"),
+                    departure_date:
+                      dateString instanceof Date && !isNaN(dateString)
+                        ? moment(dateString).format("YYYY-MM-DD")
+                        : null,
                   })
                 );
               }}
@@ -133,7 +140,10 @@ function Filter() {
                 }
                 dispatch(
                   changeActiveFilters({
-                    arrival_date: moment(dateString).format("YYYY-MM-DD"),
+                    arrival_date:
+                      dateString instanceof Date && !isNaN(dateString)
+                        ? moment(dateString).format("YYYY-MM-DD")
+                        : null,
                   })
                 );
               }}

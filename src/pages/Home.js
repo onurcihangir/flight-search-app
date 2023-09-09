@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import FlightCard from "../components/FlightCard";
@@ -9,8 +9,7 @@ import Error from "../components/Error";
 function Home() {
   const flights = useSelector((state) => state.flights.items);
   const error = useSelector((state) => state.flights.error);
-  //TODO: control for error response for flight request
-  //TODO: control for empty flight response
+  const isFetched = useSelector((state) => state.flights.isFetched);
   return (
     <div
       style={{
@@ -33,6 +32,9 @@ function Home() {
           <FlightCard flight={flight} />
         </Box>
       ))}
+      {isFetched && flights.length === 0 && (
+        <Typography variant="h5">No flights found</Typography>
+      )}
     </div>
   );
 }

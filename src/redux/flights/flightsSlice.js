@@ -21,6 +21,7 @@ export const flightsSlice = createSlice({
     activeFilters: {},
     sort: "duration",
     isLoading: false,
+    isFetched: false,
     error: null,
   },
   reducers: {
@@ -40,6 +41,7 @@ export const flightsSlice = createSlice({
     },
     [getFlightsAsync.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.isFetched = true;
       state.items = action.payload;
     },
     [getFlightsAsync.rejected]: (state, action) => {
