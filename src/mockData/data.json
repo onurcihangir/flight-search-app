@@ -687,8 +687,8 @@
       "dept_city": "Istanbul",
       "arr_to": "RYG",
       "arr_city": "Rygge",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-06T12:50:00.000+02:00",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-06",
       "duration": "8h 20m",
       "price": 500
     },
@@ -697,8 +697,8 @@
       "dept_city": "Naples",
       "arr_to": "CTA",
       "arr_city": "Catania",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-05T20:35:00.000+05:30",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-05",
       "duration": "0h 40m",
       "price": 50
     },
@@ -707,8 +707,8 @@
       "dept_city": "Istanbul",
       "arr_to": "ADB",
       "arr_city": "Izmir",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-06T20:55:00.000+02:00",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-06",
       "duration": "1h 00m",
       "price": 30
     },
@@ -717,8 +717,8 @@
       "dept_city": "Istanbul",
       "arr_to": "RYG",
       "arr_city": "Rygge",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-06T12:50:00.000+02:00",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-06",
       "duration": "8h 20m",
       "price": 500
     },
@@ -727,8 +727,8 @@
       "dept_city": "Istanbul",
       "arr_to": "RYG",
       "arr_city": "Rygge",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-06T12:50:00.000+02:00",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-06",
       "duration": "8h 20m",
       "price": 500
     },
@@ -737,8 +737,8 @@
       "dept_city": "Istanbul",
       "arr_to": "RYG",
       "arr_city": "Rygge",
-      "departure_date": "2023-07-05T19:55:00.000+05:30",
-      "arrival_date": "2023-07-06T12:50:00.000+02:00",
+      "departure_date": "2023-07-05",
+      "arrival_date": "2023-07-06",
       "duration": "8h 20m",
       "price": 500
     },
@@ -747,8 +747,8 @@
       "dept_city": "Istanbul",
       "arr_to": "RYG",
       "arr_city": "Rygge",
-      "departure_date": "2023-07-07T19:55:00.000+05:30",
-      "arrival_date": "2023-07-08T12:50:00.000+02:00",
+      "departure_date": "2023-07-07",
+      "arrival_date": "2023-07-08",
       "duration": "8h 20m",
       "price": 400
     }
