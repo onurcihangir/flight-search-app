@@ -20,22 +20,70 @@ import Loading from "./Loading";
 import Error from "./Error";
 
 function Filter() {
+  const errorMessage = "Please fill in all fields.";
   const dispatch = useDispatch();
-  // TODO: validation for every field
   const isLoading = useSelector((state) => state.airports.isLoading);
-  const error = useSelector((state) => state.airports.error);
+  const requestError = useSelector((state) => state.airports.error);
   const airports = useSelector((state) => state.airports.items);
   const activeFilters = useSelector((state) => state.flights.activeFilters);
   const sortParam = useSelector((state) => state.flights.sort);
 
   const [oneWay, setOneWay] = useState(false);
+  const [fieldsErrors, setFieldsErrors] = React.useState({
+    dept_from: false,
+    arr_to: false,
+    departure_date: false,
+    arrival_date: false,
+  });
+
+  const [blankFieldsError, setBlankFieldsError] = React.useState(false);
 
   useEffect(() => {
     dispatch(getAirportsAsync());
   }, [dispatch]);
 
   const onClick = () => {
-    dispatch(getFlightsAsync({ sortParam, filters: activeFilters }));
+    // check if the fields are blank
+    let error = false;
+    let errors = {
+      dept_from: false,
+      arr_to: false,
+      departure_date: false,
+      arrival_date: false,
+    };
+    if (!activeFilters.dept_from) {
+      errors.dept_from = true;
+      error = true;
+    }
+    if (!activeFilters.arr_to) {
+      errors.arr_to = true;
+      error = true;
+    }
+    if (!activeFilters.departure_date) {
+      errors.departure_date = true;
+      error = true;
+    }
+    if (!oneWay && !activeFilters.arrival_date) {
+      errors.arrival_date = true;
+      error = true;
+    }
+    // set fields' error prop
+    setFieldsErrors(errors);
+    // set state for error snackbar
+    setBlankFieldsError(error);
+
+    // if there is not a blank field, then fetch flights
+    if (!error) {
+      dispatch(getFlightsAsync({ sortParam, filters: activeFilters }));
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setBlankFieldsError(false);
   };
 
   if (isLoading) {
@@ -44,8 +92,15 @@ function Filter() {
 
   return (
     <div>
-      {error && (
-        <Error open={error} errorMessage={"Error when fetching airports"} />
+      {(blankFieldsError || requestError) && (
+        <Error
+          // show error message if there is blank field or fetching error
+          open={blankFieldsError || requestError}
+          errorMessage={
+            blankFieldsError ? errorMessage : "Error when fetching airports"
+          }
+          onClose={blankFieldsError ? handleClose : null}
+        />
       )}
       <Paper
         elevation={3}
@@ -65,6 +120,7 @@ function Filter() {
                   onChange={() => {
                     const checked = !oneWay;
                     setOneWay(checked);
+                    // if oneway is checked then set arrival date to null
                     if (checked) {
                       dispatch(
                         changeActiveFilters({
@@ -84,13 +140,20 @@ function Filter() {
               options={airports}
               getOptionLabel={(option) => `(${option.code}) ${option.name}`}
               renderInput={(params) => (
-                <TextField {...params} label="Departing From" />
+                <TextField
+                  {...params}
+                  error={fieldsErrors.dept_from}
+                  label="Departing From"
+                />
               )}
-              onChange={(event, value) =>
+              onChange={(event, value) => {
                 dispatch(
                   changeActiveFilters({ dept_from: value ? value.code : null })
-                )
-              }
+                );
+                // if there is an error before set to false
+                fieldsErrors.dept_from &&
+                  setFieldsErrors({ ...fieldsErrors, dept_from: false });
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={5.25} md={5.25}>
@@ -99,19 +162,31 @@ function Filter() {
               options={airports}
               getOptionLabel={(option) => `(${option.code}) ${option.name}`}
               renderInput={(params) => (
-                <TextField {...params} label="Arriving At" />
+                <TextField
+                  {...params}
+                  error={fieldsErrors.arr_to}
+                  label="Arriving At"
+                />
               )}
-              onChange={(event, value) =>
+              onChange={(event, value) => {
                 dispatch(
                   changeActiveFilters({ arr_to: value ? value.code : null })
-                )
-              }
+                );
+                // if there is an error before set to false
+                fieldsErrors.arr_to &&
+                  setFieldsErrors({ ...fieldsErrors, arr_to: false });
+              }}
             />
           </Grid>
           <Grid item xs={6} sm={5} md={5}>
             <DatePicker
               sx={{ width: "100%" }}
               label={"Departure Date"}
+              slotProps={{
+                textField: {
+                  error: fieldsErrors.departure_date,
+                },
+              }}
               onChange={(value) => {
                 let dateString = null;
                 if (value) {
@@ -120,11 +195,15 @@ function Filter() {
                 dispatch(
                   changeActiveFilters({
                     departure_date:
+                      // control for Invalid Date
                       dateString instanceof Date && !isNaN(dateString)
                         ? moment(dateString).format("YYYY-MM-DD")
                         : null,
                   })
                 );
+                // if there is an error before set to false
+                fieldsErrors.departure_date &&
+                  setFieldsErrors({ ...fieldsErrors, departure_date: false });
               }}
             />
           </Grid>
@@ -133,6 +212,11 @@ function Filter() {
               sx={{ width: "100%" }}
               disabled={oneWay}
               label={"Return Date"}
+              slotProps={{
+                textField: {
+                  error: fieldsErrors.arrival_date,
+                },
+              }}
               onChange={(value) => {
                 let dateString = null;
                 if (value) {
@@ -146,6 +230,9 @@ function Filter() {
                         : null,
                   })
                 );
+                // if there is an error before set to false
+                fieldsErrors.arrival_date &&
+                  setFieldsErrors({ ...fieldsErrors, arrival_date: false });
               }}
             />
           </Grid>
