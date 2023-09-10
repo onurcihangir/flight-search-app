@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getFlightsAsync = createAsyncThunk(
   "flights/getFlightsAsync",
-  async ({ page, sortParam, filters }) => {
+  async ({ sortParam, filters }) => {
     console.log(sortParam);
     console.log(filters);
     const resp = await axios.get(

@@ -237,7 +237,17 @@ function Filter() {
             />
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <Button variant="contained" onClick={() => onClick()}>
+            <Button
+              sx={{
+                backgroundColor: "#8E2157",
+                borderRadius: "25px",
+                ":hover": {
+                  backgroundColor: "#5C0931",
+                },
+              }}
+              variant="contained"
+              onClick={() => onClick()}
+            >
               Search Flights
             </Button>
           </Grid>

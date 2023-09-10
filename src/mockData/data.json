@@ -715,12 +715,12 @@
     {
       "dept_from": "SAW",
       "dept_city": "Istanbul",
-      "arr_to": "RYG",
-      "arr_city": "Rygge",
+      "arr_to": "ADB",
+      "arr_city": "Izmir",
       "departure_date": "2023-07-05",
       "arrival_date": "2023-07-06",
-      "duration": "8h 20m",
-      "price": 500
+      "duration": "1h 00m",
+      "price": 50
     },
     {
       "dept_from": "SAW",

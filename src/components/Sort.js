@@ -7,12 +7,18 @@ function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.flights.sort);
   const activeFilters = useSelector((state) => state.flights.activeFilters);
+  const isFetched = useSelector((state) => state.flights.isFetched);
 
   const handleChange = (event) => {
     dispatch(changeSort(event.target.value));
-    dispatch(
-      getFlightsAsync({ sortParam: event.target.value, filters: activeFilters })
-    );
+    if (isFetched) {
+      dispatch(
+        getFlightsAsync({
+          sortParam: event.target.value,
+          filters: activeFilters,
+        })
+      );
+    }
   };
 
   return (
@@ -27,7 +33,11 @@ function Sort() {
       }}
     >
       <Typography sx={{ paddingRight: "10px" }}>Sort By:</Typography>
-      <Select sx={{ width: "15%" }} value={sort} onChange={handleChange}>
+      <Select
+        sx={{ width: "15%", bgcolor: "white" }}
+        value={sort}
+        onChange={handleChange}
+      >
         <MenuItem value="duration">
           <em>Duration</em>
         </MenuItem>
