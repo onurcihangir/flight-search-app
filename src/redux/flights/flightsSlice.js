@@ -4,8 +4,6 @@ import axios from "axios";
 export const getFlightsAsync = createAsyncThunk(
   "flights/getFlightsAsync",
   async ({ sortParam, filters }) => {
-    console.log(sortParam);
-    console.log(filters);
     const resp = await axios.get(
       `${process.env.REACT_APP_API_BASE_URL}/flights?_sort=${sortParam}&_order=asc`,
       { params: filters }
@@ -26,9 +24,7 @@ export const flightsSlice = createSlice({
   },
   reducers: {
     changeActiveFilters: (state, action) => {
-      console.log(action.payload);
       state.activeFilters = { ...state.activeFilters, ...action.payload };
-      console.log(state.activeFilters);
     },
     changeSort: (state, action) => {
       state.sort = action.payload;

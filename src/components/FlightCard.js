@@ -56,7 +56,10 @@ function FlightCard({ flight }) {
             </Typography>
           </CardContent>
         </Grid>
-        <Grid item xs={4} sm={4} md={4}>
+        <Grid item xs={2} sm={2} md={2}>
+          <img style={{ width: "75%" }} src={flight.company} />
+        </Grid>
+        <Grid item xs={2} sm={2} md={2}>
           <Box>
             Trip Duration:
             <Typography
