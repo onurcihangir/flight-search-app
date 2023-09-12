@@ -57,7 +57,7 @@ function FlightCard({ flight }) {
           </CardContent>
         </Grid>
         <Grid item xs={2} sm={2} md={2}>
-          <img style={{ width: "75%" }} src={flight.company} />
+          <img style={{ width: "75%" }} src={flight.company} alt="airline" />
         </Grid>
         <Grid item xs={2} sm={2} md={2}>
           <Box>
