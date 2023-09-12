@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Dependency for Mock API
+To use mock API, json-server should be installed
+```
+npm install -g json-server
+```
+After the installation, run API in project directory at port 8000
+```
+json-server --watch src/mockData/data.json --port 8000
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
